@@ -1,0 +1,95 @@
+<html>
+
+  <head>
+    <title>raphael.graph demo</title>  
+    <script src="../vendor/graphjs/lib/graph.js" type="text/javascript" charset="utf-8"></script>
+    <script src="../vendor/raphael/raphael.js" type="text/javascript" charset="utf-8"></script>
+    <script src="../vendor/raphael.draggable/lib/raphael.draggable.js" type="text/javascript" charset="utf-8"></script>
+    <script src="../lib/raphael.graph.js" type="text/javascript" charset="utf-8"></script>
+  </head>
+  
+  <style type="text/css" media="screen">
+    body {
+      margin: 0;
+      text-align: center;
+      font-family: Helvetica, Sans-Serif;
+    }
+    
+    #demo {
+      margin: 0 auto;
+      width: 320px;
+      height: 480px;
+    }
+    
+    a {
+      font-weight: bold;
+      color: #00F;
+      text-decoration: none;
+    }
+    
+    a:hover {
+    text-decoration: underline;
+    }
+    
+  </style>
+  
+  <body style=>
+    <div id="demo"></div>
+    
+    <script type="text/javascript">
+      var paper = Raphael(document.getElementById('demo'))
+        .graph.enable()
+        .draggable.enable();
+      
+      function vertex(x, y)
+      {
+        return paper.circle(x, y, 8)
+          .attr('fill', 'blue')
+          .draggable.enable();
+      }
+      
+      // peterson graph coordinates
+      var coords = [
+        [0.476000, 0.878000],
+        [0.334000, 0.194000],
+        [0.654000, 0.194000],
+        [0.892000, 0.610000],
+        [0.096000, 0.620000],
+        [0.476000, 0.708000],
+        [0.382000, 0.368000],
+        [0.674000, 0.570000],
+        [0.308000, 0.570000],
+        [0.602000, 0.366000]
+      ];
+      
+      var vertices = [];
+      
+      for (var i = 0; i < coords.length; i++) {
+        var scale = 310;
+        vertices[i] = vertex(coords[i][0] * scale, 400 - coords[i][1] * scale);
+      }
+      
+      // peterson graph edges
+      vertices[0].graph.edgeTo(vertices[3]);
+      vertices[3].graph.edgeTo(vertices[2]);
+      vertices[2].graph.edgeTo(vertices[1]);
+      vertices[1].graph.edgeTo(vertices[4]);
+      vertices[4].graph.edgeTo(vertices[0]);
+      
+      vertices[0].graph.edgeTo(vertices[5]);
+      vertices[3].graph.edgeTo(vertices[7]);
+      vertices[2].graph.edgeTo(vertices[9]);
+      vertices[1].graph.edgeTo(vertices[6]);
+      vertices[4].graph.edgeTo(vertices[8]);
+      
+      vertices[5].graph.edgeTo(vertices[6]);
+      vertices[6].graph.edgeTo(vertices[7]);
+      vertices[7].graph.edgeTo(vertices[8]);
+      vertices[8].graph.edgeTo(vertices[9]);
+      vertices[9].graph.edgeTo(vertices[5]);
+    </script>
+    
+    <p>This is a demo of <a href="http://github.com/dodgeballcannon/raphael.graph">raphael.graph</a>.</p>
+  </body>
+
+</html>
