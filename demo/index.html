@@ -49,45 +49,47 @@
           .draggable.enable();
       }
       
-      // peterson graph coordinates
-      var coords = [
-        [0.476000, 0.878000],
-        [0.334000, 0.194000],
-        [0.654000, 0.194000],
-        [0.892000, 0.610000],
-        [0.096000, 0.620000],
-        [0.476000, 0.708000],
-        [0.382000, 0.368000],
-        [0.674000, 0.570000],
-        [0.308000, 0.570000],
-        [0.602000, 0.366000]
-      ];
-      
       var vertices = [];
       
-      for (var i = 0; i < coords.length; i++) {
-        var scale = 310;
-        vertices[i] = vertex(coords[i][0] * scale, 400 - coords[i][1] * scale);
+      var cx = 160;
+      var cy = 240;
+      
+      // outside cycle
+      var outside = 150;
+      for (var i = 0; i < 5; i++) {
+        vertices[i] = vertex(
+          cx + outside * Math.sin(i*6.28/5),
+          cy - outside * Math.cos(i*6.28/5)
+        );
+      }
+      
+      // inside cycle
+      var inside = 75;
+      for (var i = 5; i < 10; i++) {
+        vertices[i] = vertex(
+          cx + inside * Math.sin(i*6.28/5),
+          cy - inside * Math.cos(i*6.28/5)
+        );
       }
       
       // peterson graph edges
-      vertices[0].graph.edgeTo(vertices[3]);
-      vertices[3].graph.edgeTo(vertices[2]);
-      vertices[2].graph.edgeTo(vertices[1]);
-      vertices[1].graph.edgeTo(vertices[4]);
+      vertices[0].graph.edgeTo(vertices[1]);
+      vertices[1].graph.edgeTo(vertices[2]);
+      vertices[2].graph.edgeTo(vertices[3]);
+      vertices[3].graph.edgeTo(vertices[4]);
       vertices[4].graph.edgeTo(vertices[0]);
       
       vertices[0].graph.edgeTo(vertices[5]);
-      vertices[3].graph.edgeTo(vertices[7]);
-      vertices[2].graph.edgeTo(vertices[9]);
       vertices[1].graph.edgeTo(vertices[6]);
-      vertices[4].graph.edgeTo(vertices[8]);
+      vertices[2].graph.edgeTo(vertices[7]);
+      vertices[3].graph.edgeTo(vertices[8]);
+      vertices[4].graph.edgeTo(vertices[9]);
       
-      vertices[5].graph.edgeTo(vertices[6]);
-      vertices[6].graph.edgeTo(vertices[7]);
-      vertices[7].graph.edgeTo(vertices[8]);
-      vertices[8].graph.edgeTo(vertices[9]);
-      vertices[9].graph.edgeTo(vertices[5]);
+      vertices[5].graph.edgeTo(vertices[7]);
+      vertices[6].graph.edgeTo(vertices[8]);
+      vertices[7].graph.edgeTo(vertices[9]);
+      vertices[8].graph.edgeTo(vertices[5]);
+      vertices[9].graph.edgeTo(vertices[6]);
     </script>
     
     <p>This is a demo of <a href="http://github.com/dodgeballcannon/raphael.graph">raphael.graph</a>.</p>
